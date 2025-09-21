@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>CRUD Properties</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+          body {
+      font-family: sans-serif;
+      margin: 24px;
+      }
+          h1 {
+      margin-bottom: 8px;
+      }
+          form, .card, table {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      }
+          form {
+      max-width: 540px;
+      margin-bottom: 24px;
+      }
+          label {
+      display: block;
+      margin-top: 12px;
+      }
+          input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      }
+          button {
+      padding: 8px 12px;
+      margin-top: 12px;
+      cursor: pointer;
+      }
+          .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      }
+          .actions button {
+      margin-right: 6px;
+      }
+          table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      }
+          th, td {
+      border-top: 1px solid #eee;
+      padding: 8px;
+      text-align: left;
+      }
+          .muted {
+      color: #666;
+      font-size: 0.9rem;
+      }
+          .badge {
+      display:inline-block;
+      padding:2px 6px;
+      border-radius:6px;
+      background:#f3f3f3;
+      }
+          .error {
+      color: #b00020;
+      margin-top: 6px;
+      }
+          .success {
+      color: #0a8a0a;
+      margin-top: 6px;
+      }
+        </style>
+    </head>
+    <body>
+        <h1>Gestión de Propiedades</h1>
+        <p class="muted">Backend: <span class="badge" id="apiBaseLabel"></span></p>
+
+        <!-- Formulario Create/Update -->
+        <form id="propertyForm" novalidate>
+            <h3 id="formTitle">Crear propiedad</h3>
+            <input type="hidden" id="propId" />
+
+            <label>
+                Dirección *
+                <input id="address" type="text" required minlength="5" placeholder="Calle 123 #45-67, Bogotá" />
+            </label>
+
+            <div class="row">
+                <label>
+                    Precio (COP) *
+                    <input id="price" type="number" required min="1" step="0.01" placeholder="450000000" />
+                </label>
+
+                <label>
+                    Tamaño (m²) *
+                    <input id="size" type="number" required min="1" step="0.01" placeholder="80.5" />
+                </label>
+            </div>
+
+            <label>
+                Descripción
+                <textarea id="description" rows="3" maxlength="1000" placeholder="Apartamento 2H/2B, parqueadero..."></textarea>
+            </label>
+
+            <div>
+                <button type="submit" id="saveBtn">Guardar</button>
+                <button type="button" id="cancelEditBtn" style="display:none">Cancelar edición</button>
+            </div>
+            <div id="formMsg" class="muted"></div>
+        </form>
+
+        <!-- Listado -->
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="margin:0;">Propiedades</h3>
+                <button id="refreshBtn">Actualizar lista</button>
+            </div>
+            <table id="propertiesTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Dirección</th>
+                        <th>Precio</th>
+                        <th>Tamaño</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody><!-- rows dinámicas --></tbody>
+            </table>
+        </div>
+
+        <!-- Detalle rápido -->
+        <div class="card" style="margin-top:16px;">
+            <h3 style="margin-top:0;">Detalle</h3>
+            <pre id="detailBox" class="muted">Selecciona "Ver" para mostrar detalles aquí.</pre>
+        </div>
+
+        <script src="./app.js"></script>
+    </body>
+</html>
